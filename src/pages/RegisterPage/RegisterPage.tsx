@@ -37,7 +37,10 @@ const RegisterPage = () => {
   }
 
   async function startRegistr(values: AuthFormData) {
-    const personInfo = JSON.stringify(values);
+    const { name, ...info } = values;
+    const userName = JSON.stringify(name);
+    const personInfo = JSON.stringify(info);
+    setToStorage(userName, "userName");
     setToStorage(personInfo, "isRegister");
     redirectToLoginPage();
   }
@@ -61,21 +64,27 @@ const RegisterPage = () => {
           validateOnMount
         >
           {({ errors, values, handleChange, isValid, dirty }) => (
-            <Form>
+            <Form className={classes.form}>
               <h3>Register</h3>
 
-              <label htmlFor="username">Name</label>
+              <label className={classes.label} htmlFor="username">
+                Name
+              </label>
               <input
+                className={classes.input}
                 type="text"
                 placeholder="Name"
                 id="name"
                 value={values.name}
                 onChange={handleChange}
               />
-              {!!errors.name && <Errors errors={errors.name} />}
+              {/* {!!errors.name && <Errors errors={errors.name} />} */}
 
-              <label htmlFor="email">Email</label>
+              <label className={classes.label} htmlFor="email">
+                Email
+              </label>
               <input
+                className={classes.input}
                 type="email"
                 placeholder="Email"
                 id="email"
@@ -83,34 +92,38 @@ const RegisterPage = () => {
                 onChange={handleChange}
                 required
               />
-              {errors.email !== "Required" && <Errors errors={errors.email} />}
+              {/* {errors.email !== "Required" && <Errors errors={errors.email} />} */}
 
-              <label htmlFor="password">Password</label>
+              <label className={classes.label} htmlFor="password">
+                Password
+              </label>
               <input
+                className={classes.input}
                 type="password"
                 placeholder="Password"
                 id="password"
                 value={values.password}
                 onChange={handleChange}
               />
-              {errors.password !== "Required" && (
+              {/* {errors.password !== "Required" && (
                 <Errors errors={errors.password} />
-              )}
-              <div
+              )} */}
+              {/* <div
                 style={{ paddingTop: "20px", color: "red", fontSize: "20px" }}
               >
                 {(errors.password === "Required" ||
                   errors.email === "Required") &&
                   "All fields must be filled"}
-              </div>
+              </div> */}
 
-              <button type="submit" disabled={!(isValid && dirty)}>
+              <button
+                className={classes.button}
+                type="submit"
+                disabled={!(isValid && dirty)}
+              >
                 Register
               </button>
-              <button
-                className={classes.redirectToLogin}
-                onClick={redirectToLoginPage}
-              >
+              <button className={classes.button} onClick={redirectToLoginPage}>
                 Redirect to Login page
               </button>
             </Form>

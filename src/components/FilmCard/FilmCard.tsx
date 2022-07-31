@@ -37,7 +37,7 @@ const MyselfCard: React.FC<ItemData> = ({ item }) => {
           </div>
           <div className={classes.dynamicPart}>
             {expanded && (
-              <div style={{ display: "flex" }}>
+              <div className={classes.mainInfo}>
                 <div className={classes.detailsFotViewContent}>
                   <p className={classes.personalInfo}>
                     Director: {item.Director}.

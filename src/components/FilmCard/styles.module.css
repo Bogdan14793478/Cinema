@@ -76,6 +76,10 @@
   bottom: 0;
 }
 
+.mainInfo {
+  display: flex;
+}
+
 .detailsFotViewContent {
   background-color: #f1f1f1;
   padding: 10px 20px;

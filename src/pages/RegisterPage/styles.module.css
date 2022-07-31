@@ -6,7 +6,7 @@
   position: relative;
 }
 
-form {
+.form {
   min-height: 680px;
   width: 400px;
   background-color: rgba(255, 255, 255, 0.03);
@@ -20,27 +20,27 @@ form {
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
 }
-form * {
+.form * {
   font-family: "Poppins", sans-serif;
   color: #ffffff;
   letter-spacing: 0.5px;
   outline: none;
   border: none;
 }
-form h3 {
+.form h3 {
   font-size: 40px;
   font-weight: 700;
   line-height: 42px;
   text-align: center;
 }
 
-label {
+.label {
   display: block;
   margin-top: 30px;
   font-size: 16px;
   font-weight: 500;
 }
-input {
+.input {
   display: block;
   height: 50px;
   width: 100%;
@@ -55,10 +55,10 @@ input {
   color: #e1e1e1;
 }
 
-input:hover {
+.input:hover {
   outline: 2px solid #0001;
 }
-button {
+.button {
   margin-top: 50px;
   width: 100%;
   background-color: #ffffff;
@@ -98,50 +98,29 @@ button {
   color: #ffffff;
 }
 
-/* @media (max-width: 480px) {
-  form {
-    width: 200px;
-  }
-}
-
-@media (max-height: 440px) {
-  .backFont {
-    width: 200vw;
-    height: 200vh;
-  }
-  form {
-    min-height: 100px;
-  }
-  button {
-    margin-top: 20px;
-  }
-} */
-
 @media (max-height: 760px) {
-  button {
+  .button {
     margin-top: 20px;
     padding: 5px;
   }
 }
 
 @media (max-width: 480px) {
-  form {
+  .form {
     width: 200px;
   }
-  /* button {
-    margin-top: 5px;
-  } */
 }
 
 @media (max-width: 376px) {
-  form {
-    width: 200px;
+  .form {
+    width: 100%;
+    height: 100%;
     padding: 10px;
   }
-  input {
+  .input {
     width: 90%;
   }
-  button {
+  .button {
     margin-top: 0;
   }
 }

@@ -33,10 +33,10 @@ export default function Navbar() {
     navigate(`/login`);
   };
 
-  const takeInfoUser = getFromStorage("isRegister");
+  const takeInfoUser = getFromStorage("userName");
 
   if (takeInfoUser) {
-    var { name: UserName } = JSON.parse(takeInfoUser);
+    var UserName = JSON.parse(takeInfoUser);
   }
 
   const takeInfoAboutAuth = () => {

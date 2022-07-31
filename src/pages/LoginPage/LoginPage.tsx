@@ -12,7 +12,6 @@ import { AuthFormData } from "../../utils/interface";
 import classes from "./styles.module.css";
 
 const initialValues: AuthFormData = {
-  name: "",
   email: "",
   password: "",
 };
@@ -78,21 +77,13 @@ const LoginPage = () => {
           validateOnMount
         >
           {({ errors, values, handleChange, isValid, dirty }) => (
-            <Form>
+            <Form className={classes.form}>
               <h3>Login</h3>
-
-              <label htmlFor="username">Name</label>
+              <label className={classes.label} htmlFor="email">
+                Email
+              </label>
               <input
-                type="text"
-                placeholder="Name"
-                id="name"
-                value={values.name}
-                onChange={handleChange}
-              />
-              {!!errors.name && <Errors errors={errors.name} />}
-
-              <label htmlFor="email">Email</label>
-              <input
+                className={classes.input}
                 type="email"
                 placeholder="Email"
                 id="email"
@@ -100,32 +91,39 @@ const LoginPage = () => {
                 onChange={handleChange}
                 required
               />
-              {errors.email !== "Required" && <Errors errors={errors.email} />}
+              {/* {errors.email !== "Required" && <Errors errors={errors.email} />} */}
 
-              <label htmlFor="password">Password</label>
+              <label className={classes.label} htmlFor="password">
+                Password
+              </label>
               <input
+                className={classes.input}
                 type="password"
                 placeholder="Password"
                 id="password"
                 value={values.password}
                 onChange={handleChange}
               />
-              {errors.password !== "Required" && (
+              {/* {errors.password !== "Required" && (
                 <Errors errors={errors.password} />
-              )}
-              <div
+              )} */}
+              {/* <div
                 style={{ paddingTop: "20px", color: "red", fontSize: "20px" }}
               >
                 {(errors.password === "Required" ||
                   errors.email === "Required") &&
                   "All fields must be filled"}
-              </div>
+              </div> */}
 
-              <button type="submit" disabled={!(isValid && dirty)}>
+              <button
+                className={classes.button}
+                type="submit"
+                disabled={!(isValid && dirty)}
+              >
                 Login
               </button>
               <button
-                className={classes.redirectToLogin}
+                className={classes.button}
                 onClick={redirectToRegisterPage}
               >
                 Not register yet?
