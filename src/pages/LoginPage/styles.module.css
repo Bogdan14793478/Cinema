@@ -44,13 +44,16 @@
   font-size: 16px;
   font-weight: 500;
 }
+.labelError {
+  color: red;
+}
+
 .input {
   display: block;
   height: 50px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 3px;
-  padding: 0 10px;
   margin-top: 8px;
   font-size: 14px;
   font-weight: 300;
@@ -61,6 +64,14 @@
 
 .input:hover {
   outline: 2px solid #0001;
+}
+
+.inputError {
+  border: 1px solid red;
+  border-radius: 3px;
+}
+.error {
+  color: red;
 }
 .button {
   margin-top: 50px;
@@ -130,13 +141,16 @@
     margin-left: 10%;
   }
   .input {
-    width: 80%;
-    margin-left: 10%;
+    width: 87%;
     padding: 0;
   }
   .button {
     margin-top: 15px;
     width: 90%;
     margin-left: 5%;
+  }
+  .errMessage {
+    margin-left: 10%;
+    position: relative;
   }
 }

@@ -53,12 +53,12 @@ const Switcher = () => {
       if (e.deltaX < 0) {
         setTimeout(() => {
           getNext();
-        }, 120);
+        }, 700);
       }
       if (e.deltaX > 0) {
         setTimeout(() => {
           getPrevious();
-        }, 120);
+        }, 700);
       }
     },
     [getNext, getPrevious]
