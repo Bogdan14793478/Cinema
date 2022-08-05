@@ -9,7 +9,7 @@
 
 .imageCard {
   width: 100%;
-  min-height: 240px;
+  /* min-height: 240px; */
 }
 
 .image {
@@ -74,10 +74,12 @@
 .dynamicPart {
   position: absolute;
   bottom: 0;
+  width: 100%;
 }
 
 .mainInfo {
   display: flex;
+  background-color: #f1f1f1;
 }
 
 .detailsFotViewContent {

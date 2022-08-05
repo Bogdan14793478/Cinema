@@ -2,10 +2,11 @@
   position: relative;
   background-color: #171717;
   box-sizing: border-box;
+  padding: 0;
 }
 .container {
   max-width: 1256px;
-  margin: 40px auto;
+  margin: 0px auto;
 }
 .cards {
   width: 100%;

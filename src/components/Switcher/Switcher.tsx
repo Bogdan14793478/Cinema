@@ -81,13 +81,15 @@ const Switcher = () => {
         {carouselItems.map((item, index) => {
           return (
             <div key={index} className={classes.cardImage}>
-              <img
-                src={item.Images[0]}
-                alt="/"
-                className={classes.imgCarousel}
-              />
+              {!!item.Images && (
+                <img
+                  src={!!item.Images && item?.Images[0]}
+                  alt="/"
+                  className={classes.imgCarousel}
+                />
+              )}
               <p className={classes.textCarousel}>
-                {item.Plot.length > 50
+                {!!item.Plot && item.Plot.length > 50
                   ? `${item.Plot.substring(0, 50)}...`
                   : item.Plot}
               </p>

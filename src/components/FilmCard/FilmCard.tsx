@@ -9,7 +9,7 @@ import { ItemData } from "../../utils/interface";
 
 import classes from "./styles.module.css";
 
-const MyselfCard: React.FC<ItemData> = ({ item }) => {
+const Card: React.FC<ItemData> = ({ item }) => {
   const [data] = useState(item);
   const [expanded, seteExpanded] = useState(false);
 
@@ -18,18 +18,24 @@ const MyselfCard: React.FC<ItemData> = ({ item }) => {
   };
 
   const isAuth = getFromStorage("isAuth");
+  const adressImg = process.env.REACT_APP_URL_IMG_ADRESS + item.poster_path;
 
   return (
     <div className={classes.card}>
       <div className={classes.imageCard}>
-        <img src={data.Images[0]} className={classes.image} alt="/" />
+        <img
+          src={!!data.Images ? data.Images[0] : adressImg}
+          className={classes.image}
+          alt="/"
+        />
       </div>
-      <p className={classes.cardTitle}>{item.Title}</p>
+      <p className={classes.cardTitle}>{item.Title || item.title}</p>
       {isAuth ? (
         <>
           <div className={classes.details}>
             <p className={classes.info}>
-              {item.Genre} | {item.Director} | {item.Released}
+              {item.Genre || "action"} | {item.Director || "some people"} |{" "}
+              {item.Released || item.release_date}
             </p>
             <div className={classes.variantOne}>
               <ExpandMoreIcon onClick={handleExpandClick} />
@@ -40,9 +46,11 @@ const MyselfCard: React.FC<ItemData> = ({ item }) => {
               <div className={classes.mainInfo}>
                 <div className={classes.detailsFotViewContent}>
                   <p className={classes.personalInfo}>
-                    Director: {item.Director}.
+                    Director: {item.Director || "some people"}.
                   </p>
-                  <p className={classes.personalInfo}>Actors: {item.Actors}.</p>
+                  <p className={classes.personalInfo}>
+                    Actors: {item.Actors || "some people"}.
+                  </p>
                 </div>
                 <div className={classes.variantTwo}>
                   <ExpandMoreIcon onClick={handleExpandClick} />
@@ -52,9 +60,10 @@ const MyselfCard: React.FC<ItemData> = ({ item }) => {
             {expanded && (
               <div className={[classes.actionDetails, classes.line].join(" ")}>
                 <p className={[classes.info, classes.personalInfo].join(" ")}>
-                  imdbRating: {item.imdbRating}
+                  imdbRating: {item.imdbRating || item.vote_average}
                 </p>
-                {Number(item.imdbRating) < 7 || item.imdbRating === "N/A" ? (
+                {Number(item.imdbRating || item.vote_average) < 7 ||
+                item.imdbRating === "N/A" ? (
                   <ThumbDownAltIcon />
                 ) : (
                   <ThumbUpIcon />
@@ -70,4 +79,4 @@ const MyselfCard: React.FC<ItemData> = ({ item }) => {
   );
 };
 
-export default MyselfCard;
+export default Card;

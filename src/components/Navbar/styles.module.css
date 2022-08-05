@@ -1,0 +1,44 @@
+.container {
+  height: 40px;
+  display: flex;
+  max-width: 1256px;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.leftTextNav {
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.rigthWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+.rightTextNav {
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  margin-right: 10px;
+  min-width: 120px;
+}
+
+.imgLogOut {
+  position: absolute;
+  right: 0;
+  top: 3px;
+}

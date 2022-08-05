@@ -1,37 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import backImg from "../../Image/backgroundForRegister.jpg";
+import ErrForInput from "../../components/ErrForInput/ErrForInput";
+import Input from "../../components/Input/input";
+import leftImg from "../../Image/img.svg";
+import showPass from "../../Image/showPass.svg";
 
 import {
   getFromStorage,
   notifyError,
   notifySuccess,
-  passwordExp,
   setToStorage,
 } from "../../utils/helpers";
 
 import classes from "./styles.module.css";
 
-// const initialValues: AuthFormData = {
-//   email: "",
-//   password: "",
-// };
-
-// const validationSchema = Yup.object().shape({
-//   email: Yup.string().email("Enter valid email").required("Required"),
-//   password: Yup.string()
-//     .min(6, "It`s too short")
-//     .max(6, "It`s too long")
-//     .matches(
-//       passwordExp,
-//       "Password length - 6, must have one uppercase, lowercase, number"
-//     )
-//     .required("Required"),
-// });
-
 const LoginPage = () => {
+  const [statePass, setStatePass] = useState(false);
+
   let navigate = useNavigate();
 
   const {
@@ -79,10 +66,13 @@ const LoginPage = () => {
 
   return (
     <div className={classes.container}>
-      <img src={backImg} alt="/" className={classes.backFont} />
-      <div className={classes.formContainer}>
-        <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-          <h3>Login</h3>
+      <div className={classes.leftSide}>
+        <img src={leftImg} alt="/" className={classes.imgLeft} />
+        <p className={classes.textLeft}>Welcome to the team</p>
+      </div>
+      <div className={classes.rightSide}>
+        <form onSubmit={handleSubmit(onSubmit)} className={classes.rightForm}>
+          <h3 className={classes.titleRight}>Sign In</h3>
           <label
             className={
               errors.email
@@ -92,24 +82,10 @@ const LoginPage = () => {
             htmlFor="email"
           >
             Email:
-            <input
-              type="email"
-              className={
-                errors.email
-                  ? [classes.input, classes.inputError].join(" ")
-                  : classes.input
-              }
-              {...register("email", {
-                required: "Required",
-              })}
-            />
+            <Input typeInput="email" err={errors.email} register={register} />
           </label>
           <div className={classes.errMessage}>
-            {errors?.email && (
-              <p role="alert" className={classes.error}>
-                {errors?.email?.message || "Error!"}
-              </p>
-            )}
+            <ErrForInput err={errors.email} />
           </div>
 
           <label
@@ -121,55 +97,35 @@ const LoginPage = () => {
             htmlFor="password"
           >
             Password:
-            <input
-              className={
-                errors.password
-                  ? [classes.input, classes.inputError].join(" ")
-                  : classes.input
-              }
-              type="password"
-              {...register("password", {
-                required: "Required",
-                minLength: {
-                  value: 6,
-                  message:
-                    "Password length - 6, must have one uppercase, lowercase, number",
-                },
-                maxLength: {
-                  value: 6,
-                  message:
-                    "Password length - 6, must have one uppercase, lowercase, number",
-                },
-                pattern: passwordExp,
-              })}
-            />
+            <div className={classes.passwordInp}>
+              <Input
+                typeInput={statePass ? "text" : "password"}
+                err={errors.password}
+                register={register}
+              />
+              <img
+                onClick={() => setStatePass(!statePass)}
+                src={showPass}
+                alt="/"
+                className={classes.showPassImg}
+              />
+            </div>
           </label>
-          <div className={classes.errMessage}>
-            {errors?.password && (
-              <p role="alert" className={classes.error}>
-                {errors?.password?.message || "Error!"}
-              </p>
-            )}
-          </div>
-          {/* 
-          <label className={classes.label} htmlFor="password">
-            Password
-          </label>
-          <input
-            className={classes.input}
-            type="password"
-            placeholder="Password"
-            id="password"
-            // value={values.password}
-            // onChange={handleChange}
-          /> */}
 
-          <button className={classes.button} type="submit">
-            Login
+          <div className={classes.errMessage}>
+            <ErrForInput err={errors.password} />
+          </div>
+
+          <button
+            className={[classes.button, classes.buttonSubmit].join(" ")}
+            type="submit"
+          >
+            Sign In
           </button>
-          <button className={classes.button} onClick={redirectToRegisterPage}>
-            Not register yet?
-          </button>
+          <div className={classes.redirectBtn} onClick={redirectToRegisterPage}>
+            <p>Don't have an account? </p>
+            <p className={classes.registerBtn}> Register</p>
+          </div>
         </form>
       </div>
     </div>

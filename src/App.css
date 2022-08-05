@@ -1,10 +1,9 @@
-*{
-    margin: 0;
-    padding: 0;
-    }
-    
-    .App{
-        /* justify-content: center; */
-        border-bottom: "none";
-        box-sizing: border-box;
-    }
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  justify-content: center;
+  box-sizing: border-box;
+}

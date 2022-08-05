@@ -1,31 +1,44 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 
-import MyselfCard from "../../components/FilmCard/FilmCard";
-import Navbar from "../../components/Navbar/Navbar";
-import Switcher from "../../components/Switcher/Switcher";
+import Card from "../../components/FilmCard/FilmCard";
+import NewNavbar from "../../components/Navbar/NewNavbar";
+import SlickSwitcher from "../../components/SlickSwitcher/SlickSwitcher";
 
-import data from "../../utils/constants.json";
-import { Data } from "../../utils/interface";
+import { Data, FilmFromMovieDB, ReqFilmDB } from "../../utils/interface";
+import { getMovie } from "../../api/api";
 
 import classes from "./styles.module.css";
+
+// import dataConst from "../../utils/constants.json";
 
 const MainPage = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [countDistY, setCountY] = useState(1000);
-  const [infoAboutFilms, setInfoAboutFilms] = useState<Data[]>(data);
+  const [infoAboutFilms, setInfoAboutFilms] = useState<
+    FilmFromMovieDB[] | Data[]
+  >([]);
+  const [counterPage, setCounterPage] = useState<number>(1);
+
+  async function takeDate() {
+    const movie = await getMovie(counterPage);
+    setInfoAboutFilms([...infoAboutFilms, ...movie.data.results]);
+    setCounterPage(counterPage + 1);
+  }
 
   const setBackgroundPosition = useCallback(
-    (e) => {
+    async (e) => {
       if (countDistY > 5000) return;
       if (e.pageY > countDistY) {
-        setTimeout(() => {
-          setInfoAboutFilms([...infoAboutFilms, ...data]);
-        }, 120);
+        takeDate();
         setCountY(countDistY + 1000);
       }
     },
-    [setCountY, infoAboutFilms, countDistY]
+    [setCountY, countDistY]
   );
+
+  useEffect(() => {
+    takeDate();
+  }, []);
 
   useEffect(() => {
     ref.current && ref.current.addEventListener("wheel", setBackgroundPosition);
@@ -40,13 +53,14 @@ const MainPage = () => {
 
   return (
     <div className={classes.section}>
-      <Navbar />
+      <NewNavbar />
       <div className={classes.container}>
-        <Switcher />
+        <SlickSwitcher />
         <div className={classes.cards} ref={ref}>
-          {infoAboutFilms.map((item, index) => {
-            return <MyselfCard item={item} key={index} />;
-          })}
+          {infoAboutFilms &&
+            infoAboutFilms?.map((item: FilmFromMovieDB | Data, index) => {
+              return <Card item={item} key={item.id || index} />;
+            })}
         </div>
       </div>
     </div>
