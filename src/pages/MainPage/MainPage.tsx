@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 
 import Card from "../../components/FilmCard/FilmCard";
+import Loader from "../../components/Loader/Loader";
 import NewNavbar from "../../components/Navbar/NewNavbar";
 import SlickSwitcher from "../../components/SlickSwitcher/SlickSwitcher";
 
-import { Data, FilmFromMovieDB, ReqFilmDB } from "../../utils/interface";
+import { Data, FilmFromMovieDB } from "../../utils/interface";
 import { getMovie } from "../../api/api";
 
 import classes from "./styles.module.css";
-
-// import dataConst from "../../utils/constants.json";
 
 const MainPage = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -25,9 +24,8 @@ const MainPage = () => {
     setCounterPage(counterPage + 1);
   }
 
-  const setBackgroundPosition = useCallback(
+  const loadMoreMovies = useCallback(
     async (e) => {
-      if (countDistY > 5000) return;
       if (e.pageY > countDistY) {
         takeDate();
         setCountY(countDistY + 1000);
@@ -41,15 +39,14 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    ref.current && ref.current.addEventListener("wheel", setBackgroundPosition);
+    ref.current && ref.current.addEventListener("wheel", loadMoreMovies);
     const removeListener = () => {
-      ref.current &&
-        ref.current.removeEventListener("wheel", setBackgroundPosition);
+      ref.current && ref.current.removeEventListener("wheel", loadMoreMovies);
     };
     return () => {
       removeListener();
     };
-  }, [setBackgroundPosition]);
+  }, [loadMoreMovies]);
 
   return (
     <div className={classes.section}>
@@ -57,10 +54,13 @@ const MainPage = () => {
       <div className={classes.container}>
         <SlickSwitcher />
         <div className={classes.cards} ref={ref}>
-          {infoAboutFilms &&
+          {infoAboutFilms ? (
             infoAboutFilms?.map((item: FilmFromMovieDB | Data, index) => {
               return <Card item={item} key={item.id || index} />;
-            })}
+            })
+          ) : (
+            <Loader />
+          )}
         </div>
       </div>
     </div>
