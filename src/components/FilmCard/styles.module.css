@@ -3,8 +3,9 @@
   flex-direction: column;
   width: 300px;
   max-width: 100%;
-  margin-bottom: 35px;
+  /* margin-bottom: 35px; */
   position: relative;
+  margin-top: 15px;
 }
 
 .imageCard {
@@ -42,7 +43,7 @@
   transform: rotate(180deg);
   position: absolute;
   right: 20px;
-  padding-bottom: 5px;
+  top: 5px;
 }
 
 .variantTwo {
@@ -68,7 +69,7 @@
   font-size: 14px;
   color: #575555;
   line-height: 20px;
-  width: 70%;
+  width: 90%;
 }
 
 .dynamicPart {

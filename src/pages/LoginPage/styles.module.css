@@ -93,7 +93,7 @@
 .redirectBtn {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 16px;
 }
 
 .registerBtn {
@@ -124,6 +124,15 @@
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     padding: 145px 35px;
     background-color: #ffffff;
+  }
+}
+
+@media (max-width: 467) {
+  .rightSide {
+    height: 100%;
+  }
+  .rightForm {
+    border-radius: none;
   }
 }
 

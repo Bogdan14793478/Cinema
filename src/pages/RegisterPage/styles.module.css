@@ -118,7 +118,7 @@
 .redirectBtn {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 16px;
 }
 
 .registerBtn {
@@ -152,11 +152,14 @@
   }
 }
 
-/* @media (max-width: 392px) {
-  .titleRight {
-    margin-top: 176px;
+@media (max-width: 467) {
+  .rightSide {
+    height: 100%;
   }
-} */
+  .rightForm {
+    border-radius: none;
+  }
+}
 
 @media (max-height: 588px) {
   .titleRight {
