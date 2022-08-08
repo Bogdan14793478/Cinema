@@ -102,6 +102,7 @@ const LoginPage = () => {
                 typeInput={statePass ? "text" : "password"}
                 err={errors.password}
                 register={register}
+                type="password"
               />
               <img
                 onClick={() => setStatePass(!statePass)}

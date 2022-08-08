@@ -14,9 +14,10 @@ interface Props {
   typeInput: string;
   err: Merge<FieldError, FieldErrorsImpl<DeepRequired<any>>> | undefined;
   register: any;
+  type?: string;
 }
 
-const Input: React.FC<Props> = ({ typeInput, err, register }) => {
+const Input: React.FC<Props> = ({ typeInput, err, register, type }) => {
   return (
     <div>
       <input
@@ -24,10 +25,11 @@ const Input: React.FC<Props> = ({ typeInput, err, register }) => {
         className={
           err ? [classes.input, classes.inputError].join(" ") : classes.input
         }
-        {...(typeInput === "password"
+        {...(typeInput === "password" ||
+        (type === "password" && typeInput === "text")
           ? {
               ...register("password", {
-                required: "Required",
+                required: "It`s required field",
                 minLength: {
                   value: 6,
                   message:
@@ -44,12 +46,12 @@ const Input: React.FC<Props> = ({ typeInput, err, register }) => {
           : typeInput === "email"
           ? {
               ...register("email", {
-                required: "Required",
+                required: "It`s required field",
               }),
             }
           : {
               ...register("name", {
-                required: "Required",
+                required: "It`s required field",
               }),
             })}
       />
