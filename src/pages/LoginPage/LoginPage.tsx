@@ -1,20 +1,37 @@
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 
 import ErrForInput from "../../components/ErrForInput/ErrForInput";
 import Input from "../../components/Input/input";
 import leftImg from "../../Image/img.svg";
 import showPass from "../../Image/showPass.svg";
 
+import { fromBinary } from "../../utils/base64";
+import { passwordExp } from "../../utils/helpers";
 import {
   getFromStorage,
   notifyError,
   notifySuccess,
   setToStorage,
 } from "../../utils/helpers";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import classes from "./styles.module.css";
+
+const schema = yup.object().shape({
+  email: yup.string().email().required("It`s required field"),
+  password: yup
+    .string()
+    .min(6)
+    .max(6)
+    .matches(
+      passwordExp,
+      "Password length - 6, must have one uppercase, lowercase, number"
+    )
+    .required("It`s required field"),
+});
 
 const LoginPage = () => {
   const [statePass, setStatePass] = useState(false);
@@ -26,7 +43,9 @@ const LoginPage = () => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   function redirectToRegisterPage() {
     navigate(`/register`);
@@ -47,7 +66,12 @@ const LoginPage = () => {
       notifyError("You need to registry first");
     }
     if (infoAboutRegister) {
-      identity = deepEqual(values, infoAboutRegister);
+      const data = JSON.parse(infoAboutRegister);
+      const decodePass = fromBinary(data.password);
+      data.password = decodePass;
+      const registerData = JSON.stringify(data);
+      identity = deepEqual(values, registerData);
+      console.log(identity, "identity");
     }
     if (!identity) {
       notifyError("No correct email or password");
@@ -61,7 +85,6 @@ const LoginPage = () => {
 
   const onSubmit = (data: FieldValues) => {
     startLogin(JSON.stringify(data));
-    reset();
   };
 
   return (
@@ -81,8 +104,13 @@ const LoginPage = () => {
             }
             htmlFor="email"
           >
-            Email:
-            <Input typeInput="email" err={errors.email} register={register} />
+            Email: *
+            <Input
+              typeInput="text"
+              err={errors.email}
+              register={register}
+              type="email"
+            />
           </label>
           <div className={classes.errMessage}>
             <ErrForInput err={errors.email} />
@@ -96,7 +124,7 @@ const LoginPage = () => {
             }
             htmlFor="password"
           >
-            Password:
+            Password: *
             <div className={classes.passwordInp}>
               <Input
                 typeInput={statePass ? "text" : "password"}

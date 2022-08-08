@@ -6,8 +6,6 @@ import {
   Merge,
 } from "react-hook-form";
 
-import { passwordExp } from "../../utils/helpers";
-
 import classes from "./styles.module.css";
 
 interface Props {
@@ -25,34 +23,16 @@ const Input: React.FC<Props> = ({ typeInput, err, register, type }) => {
         className={
           err ? [classes.input, classes.inputError].join(" ") : classes.input
         }
-        {...(typeInput === "password" ||
-        (type === "password" && typeInput === "text")
+        {...(type === "password"
           ? {
-              ...register("password", {
-                required: "It`s required field",
-                minLength: {
-                  value: 6,
-                  message:
-                    "Password length - 6, must have one uppercase, lowercase, number",
-                },
-                maxLength: {
-                  value: 6,
-                  message:
-                    "Password length - 6, must have one uppercase, lowercase, number",
-                },
-                pattern: passwordExp,
-              }),
+              ...register("password"),
             }
-          : typeInput === "email"
+          : type === "email"
           ? {
-              ...register("email", {
-                required: "It`s required field",
-              }),
+              ...register("email"),
             }
           : {
-              ...register("name", {
-                required: "It`s required field",
-              }),
+              ...register("name"),
             })}
       />
     </div>
